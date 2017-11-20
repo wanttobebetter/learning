@@ -56,6 +56,7 @@ public class NewsController {
 	 public String addComment(@RequestParam("newsId") int newsId,
 			                   @RequestParam("content") String content) {
 		 try {
+			 //过滤content
 			 Comment comment=new Comment();
 			 comment.setUserId(hostHolder.getUser().getId());
 			 comment.setContent(content);
