@@ -88,7 +88,7 @@ public class UserService {
             map.put("msgpwd", "密码不正确");
             return map;
         }
-
+        logger.info("login user is {}", user.getId());
         String ticket = addLoginTicket(user.getId());
         map.put("ticket", ticket);
         return map;
