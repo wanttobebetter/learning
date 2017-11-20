@@ -1,10 +1,14 @@
 package com.nowcoder.interceptor;
 
+import com.nowcoder.aspect.LogAspect;
 import com.nowcoder.dao.LoginTicketDAO;
 import com.nowcoder.dao.UserDAO;
 import com.nowcoder.model.HostHolder;
 import com.nowcoder.model.LoginTicket;
 import com.nowcoder.model.User;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -29,6 +33,8 @@ public class PassportInterceptor implements HandlerInterceptor {
 
     @Autowired
     private HostHolder hostHolder;
+    
+    private static final Logger logger = LoggerFactory.getLogger(PassportInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
@@ -56,7 +62,8 @@ public class PassportInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        if (modelAndView != null && hostHolder.getUser() != null) {
+        logger.info("user is {}", hostHolder.getUser());
+    		if (modelAndView != null && hostHolder.getUser() != null) {
             modelAndView.addObject("user", hostHolder.getUser());
         }
     }
